@@ -1,0 +1,21 @@
+﻿@model List<CarDealership.Models.ViewModel.SearchResult> 
+
+<h1>Search Results:</h1>
+
+@foreach(var item in Model)
+{
+<div style="width:100%; padding:10px; background:white; margin-bottom: 10px;">
+
+    @switch (item.Table)
+     {
+        case CarDealership.Models.ViewModel.Enum.Table.Clients:
+            <a asp-controller="Client" asp-action="Update" asp-route-clientId="@item.Id"> @item.Name </a>
+            break;
+        case CarDealership.Models.ViewModel.Enum.Table.CompanyRepresentatives:
+            <a asp-controller="CompanyRepresentative" asp-action="Upsert" asp-route-companyRepresentativeId="@item.Id"> @item.Name </a>
+            break;
+     }
+    <a> @item.Name </a>
+
+</div>
+}

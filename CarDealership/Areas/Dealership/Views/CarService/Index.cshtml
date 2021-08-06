@@ -1,0 +1,46 @@
+﻿@model List<CarDealership.Models.ViewModel.CarServices.CarServices>
+
+    <div class="container p-3">
+        <div class="row pt-4">
+
+            <div class="col-10">
+                <h2 class="text-primary">Car Service</h2>
+            </div>
+
+            <a asp-controller="CarService" asp-action="AddService" class="btn btn-success">Add service</a>
+        </div>
+        <br />
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <thead class="badge-secondary">
+                <tr>
+                    <th>ID</th>
+                    <th>Client Name</th>
+                    <th>Car</th>
+                    <th>Model</th>
+                    <th>Service Type</th>
+                    <th>Date IN</th>
+                    <th>Date OUT</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var service in Model)
+                {
+                    <tr>
+                        <td width="3%">@service.CarService.ID</td>
+                        <td width="15%">@service.Client.FullName</td>
+                        <td width="10%">@service.Car.CarName</td>
+                        <td width="10%">@service.Car.CarModel</td>
+                        <td width="20%">@service.CarService.ServiceType</td>
+                        <td width="15%">@service.CarService.ServiceIn.ToString("dd MMM yyyy")</td>
+                        <td width="15%">@service.CarService.ServiceOut.ToString("dd MMM yyyy")</td>
+                        <td width="20%">@service.CarService.Price</td>
+
+                    </tr>
+                }
+
+
+            </tbody>
+
+        </table>
+        </div>

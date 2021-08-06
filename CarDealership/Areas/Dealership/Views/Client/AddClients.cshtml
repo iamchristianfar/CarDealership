@@ -1,0 +1,71 @@
+﻿@model CarDealership.Models.ViewModel.Clients
+
+<form method="post" asp-action="AddClients">
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>First Name </label>
+            <input asp-for="Client.FirstName" class="form-control" placeholder="First Name">
+            <span asp-validation-for="Client.FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label> Last Name </label>
+            <input asp-for="Client.LastName" class="form-control" placeholder="Last Name">
+            <span asp-validation-for="Client.LastName" class="text-danger"></span>
+
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label> Address </label>
+            <input type="text" asp-for="Client.Address" class="form-control" placeholder="Eroilor Street, Cluj Napoca">
+            <span asp-validation-for="Client.Address" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label> Date Registered </label>
+            <input type="date" asp-for="Client.DateRegistered" class="form-control">
+            <span asp-validation-for="Client.DateRegistered" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label> Email </label>
+            <input type="email" asp-for="Client.Email" class="form-control" placeholder="Popescu@gmail.com">
+            <span asp-validation-for="Client.Email" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label> Phone Number </label>
+            <input type="tel" asp-for="Client.PhoneNumber" class="form-control">
+            <span asp-validation-for="Client.PhoneNumber" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label> Company Representative </label>
+        <select asp-for="Client.CompanyRepresentativeID">
+            <option disabled selected hidden>Select a representative</option>
+            @foreach (var companyRepresentative in Model.CompanyRepresentatives)
+            {
+                <option value="@companyRepresentative.ID"> @companyRepresentative.FirstName @companyRepresentative.LastName</option>
+            }
+
+        </select>
+        <span asp-validation-for="Client.CompanyRepresentativeID" class="text-danger"></span>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-8 offset-2 row">
+            <div class="col">
+               
+                <input type="submit" class="btn btn-info w-75" value="Add client" />
+            </div>
+            <div class="col">
+                <a asp-action="Index" class="btn btn-danger w-75">Back</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{ 
+    @{ <partial name="_ValidationScriptsPartial" />}
+}

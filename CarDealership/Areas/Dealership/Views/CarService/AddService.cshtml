@@ -1,0 +1,109 @@
+﻿@model CarDealership.Models.ViewModel.CarServices.CarServices
+
+
+    <h1>Add car to service</h1>
+
+    <hr />
+    <form method="post" asp-action="AddService">
+        <div class="form-row">
+            <input type="hidden" id="clientId" asp-for="CarService.ClientID" />
+            <input type="hidden" id="carId" asp-for="CarService.CarID" />
+            <div class="form-group col-md-3">
+                <label>Client name </label>
+                <input type="text" id="clientAutoComplete">
+                <input type="hidden" id="clientId" />
+            </div>
+
+            <div class="form-group col-md-4" style="padding-top:50px">
+                <select id="carSelect">
+                    <option selected disabled hidden>Select a car</option>
+                </select>
+            </div>
+        
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label> Date IN </label>
+                <input type="date" asp-for="CarService.ServiceIn" class="form-control">
+                <span asp-validation-for="CarService.ServiceIn" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label> Date OUT </label>
+                <input type="date" asp-for="CarService.ServiceOut" class="form-control">
+                <span asp-validation-for="CarService.ServiceOut" class="text-danger"></span>
+            </div>
+
+
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group col-md-4">
+                <label> Service Type </label>
+                <input type="text" asp-for="CarService.ServiceType" class="form-control">
+                <span asp-validation-for="CarService.ServiceType" class="text-danger"></span>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label> Price</label>
+                <input type="number" asp-for="CarService.Price" class="form-control">
+                <span asp-validation-for="CarService.Price" class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <div class="form-group row">
+            <div class="col-6 offset-2 row">
+                <div class="col">
+                    <input type="submit" class="btn btn-info w-75" value="Add car to service" />
+                </div>
+                <div class="col">
+                    <a asp-action="Index" class="btn btn-danger w-75">Back</a>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    @section Scripts{
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        @* <script src="https://code.jquery.com/jquery-1.12.4.js"></script>*@
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+        <script>
+                   $(function () {
+                       $("#clientAutoComplete").autocomplete({
+                       source: '@Url.Action("AutoComplete")',
+                       select: function (event, ui)
+                       {
+                           var clientId = ui.item.id;
+                           $("#clientId").val(clientId);
+                           $.ajax({
+                               type: "GET",
+                               url: "@Url.Action("GetClientCars", "Car")",
+                               data: { clientId: clientId }
+                           }).done(function (result) {
+                               console.log(result);
+                               $.each(result, function (i, car) {
+                                   $("#carSelect").append(new Option(car.carName, car.id));
+                               });
+                           });
+
+                           console.log(ui.item);
+                           $("#clientAutoComplete").val(ui.item.label);
+                           $("#clientId").val(ui.item.id);
+
+                        }
+                       });
+
+                       $("#carSelect").change(function () {
+                           var carId = $("#carSelect").find(":selected").val();
+                           $("#carId").val(carId);
+                       });
+                  });
+        </script>
+
+    }

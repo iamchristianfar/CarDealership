@@ -1,0 +1,51 @@
+﻿@model CarDealership.Models.ViewModel.Cars
+
+<h1>Add a car</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddCar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Car.CarName" class="control-label">Car Name</label>
+                <input asp-for="Car.CarName" class="form-control" />
+                <span asp-validation-for="Car.CarName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Car.CarModel" class="control-label">Car Model</label>
+                <input asp-for="Car.CarModel" class="form-control" />
+                <span asp-validation-for="Car.CarModel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Car.Colour" class="control-label">Car Color</label>
+                <input type="text" asp-for="Car.Colour" class="form-control" />
+                <span asp-validation-for="Car.Colour" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Car.Year" class="control-label">Year</label>
+                <input asp-for="Car.Year" class="form-control" />
+                <span asp-validation-for="Car.Year" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Car.ClientID" class="control-label"> Client Name</label>
+                @*<select asp-for="Car.ClientsID" class ="form-control" asp-items="Model.Clients"></select>*@
+                <select asp-for="Car.ClientID" value="Client Name">
+                    <option hidden disabled selected > Select a client</option>
+                    @foreach(var client in Model.Clients)
+                    {
+                        <option value="@client.ID">@client.FullName </option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-success" asp-action="Index">Back to List</a>
+</div>
+
